@@ -1,0 +1,46 @@
+package com.example.mylibrary;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
+
+import com.example.mylibrary.R;
+
+public class AlreadyReadActivity extends AppCompatActivity {
+    private static final String TAG = "AlreadyReadActivity";
+    private RecyclerView recyclerView;
+
+    private BooksRecViewAdapter adapter;
+    private Util utils;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_already_read);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        adapter = new BooksRecViewAdapter(this);
+        utils = new Util();
+
+        recyclerView = (RecyclerView)findViewById(R.id.recView);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+
+        adapter.setBooks(utils.getAlreadyReadBooks());
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                super.onBackPressed();
+                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+}
